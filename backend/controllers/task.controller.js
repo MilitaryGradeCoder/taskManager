@@ -15,11 +15,13 @@ const getTasks = async (req, res) => {
 const createTask = async (req, res) => {
   try {
     const { title, description, deadline } = req.body;
+    const linkedFile = req.file ? {data: req.file.buffer, contentType: req.file.mimetype} : null
 
     const newTask = await TaskServiceInstance.create({
       title,
       description,
       deadline,
+      linkedFile
     });
     res.status(201).json(newTask);
   } catch (err) {
